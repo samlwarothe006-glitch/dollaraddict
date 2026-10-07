@@ -1,0 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("cta-btn");
+
+    button.addEventListener("click", () => {
+        alert("Thanks for visiting my portfolio site!");
+    });
+});

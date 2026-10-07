@@ -1,0 +1,879 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOLLARADDICT — Full-Stack Developer & Trading Tech</title>
+    <!-- Tailwind CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0b1120',
+                            card: '#1e293b',
+                            cyan: '#38bdf8',
+                            emerald: '#10b981',
+                            purple: '#a855f7'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom Glowing Glow Effects */
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.3);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+        }
+        .glow-cyan-lg {
+            box-shadow: 0 0 50px -10px rgba(56, 189, 248, 0.4);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1120;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+        /* Glassmorphism styling */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-[#0b1120] text-slate-100 dark:bg-[#0b1120] dark:text-slate-100 transition-colors duration-300 min-h-screen relative overflow-x-hidden">
+
+    <header class="sticky top-0 z-50 transition-all duration-300 glass-panel border-b border-slate-800/60" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+                    $
+                </div>
+                <span class="text-2xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-emerald-400 to-teal-200">
+                    DOLLARADDICT
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <a href="#about" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-slate-800/50 transition-all">About</a>
+                <a href="#skills" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-slate-800/50 transition-all">Tech Stack</a>
+                <a href="#tools" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid font-xs fa-calculator text-emerald-400"></i>
+                    Trading Calc
+                </a>
+                <a href="#projects" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-slate-800/50 transition-all">Projects</a>
+                <a href="#contact" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 hover:bg-slate-800/50 transition-all">Contact</a>
+            </nav>
+
+            <!-- Actions Right -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-amber-400 transition-all border border-slate-700" title="Toggle Theme">
+                    <i class="fa-solid fa-moon text-lg" id="theme-icon"></i>
+                </button>
+
+                <!-- Hire / Action Button -->
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold text-sm shadow-md hover:shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-paper-plane"></i> Get in Touch
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="#about" class="block px-4 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">About</a>
+            <a href="#skills" class="block px-4 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">Tech Stack</a>
+            <a href="#tools" class="block px-4 py-2.5 rounded-lg text-emerald-400 font-medium hover:bg-slate-800">Trading Calculator</a>
+            <a href="#projects" class="block px-4 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">Projects</a>
+            <a href="#contact" class="block px-4 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">Contact</a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-[calc(100vh-5rem)] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <!-- Interactive Background Canvas -->
+        <canvas id="particles-canvas" class="absolute inset-0 pointer-events-none z-0 opacity-40"></canvas>
+        
+        <!-- Background Ambient Glow Shapes -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+            <!-- Badge Header -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-sky-500/30 text-sky-400 text-xs sm:text-sm font-semibold tracking-wide">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>AVAILABLE FOR FREELANCE & DEV PROJECTS</span>
+            </div>
+
+            <!-- Dynamic Headline -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight">
+                Architecting Code & <br class="hidden sm:inline"/>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
+                    Maximizing Value
+                </span>
+            </h1>
+
+            <!-- Typing Animation Subtitle -->
+            <div class="text-xl sm:text-2xl md:text-3xl text-slate-300 font-medium h-12 flex items-center justify-center gap-1 code-font">
+                <span>I am a </span>
+                <span id="typed-text" class="text-sky-400 font-bold border-r-2 border-emerald-400 pr-1"></span>
+            </div>
+
+            <!-- Summary Text -->
+            <p class="max-w-2xl mx-auto text-slate-400 text-base sm:text-lg leading-relaxed">
+                Specializing in building high-performance web applications, algorithmic trading tools, and robust system architectures tailored for the digital economy.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold text-base shadow-xl shadow-sky-500/20 hover:shadow-emerald-500/30 transition-all transform hover:-translate-y-1 text-center">
+                    <i class="fa-solid fa-rocket mr-2"></i> Explore Portfolio
+                </a>
+                <a href="#tools" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel hover:bg-slate-800/80 text-slate-200 hover:text-white font-bold text-base border border-slate-700 hover:border-emerald-500/50 transition-all text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-chart-line text-emerald-400"></i> Live Trading Calculator
+                </a>
+            </div>
+
+            <!-- Stats Highlight Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-12">
+                <div class="glass-panel p-4 rounded-2xl border border-slate-800">
+                    <div class="text-3xl font-extrabold text-sky-400">99.8%</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Uptime Performance</div>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl border border-slate-800">
+                    <div class="text-3xl font-extrabold text-emerald-400">15+</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Projects Deployed</div>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl border border-slate-800">
+                    <div class="text-3xl font-extrabold text-amber-400">5+ Years</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Market Experience</div>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl border border-slate-800">
+                    <div class="text-3xl font-extrabold text-purple-400">24/7</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Automated Systems</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-900/40">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400">Background & Expertise</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Driven By Code, Fueled By Growth</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Left Bio Text -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-slate-100">
+                        Hello, welcome to <span class="text-sky-400">DOLLARADDICT</span>
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        I am a full-stack web developer and modern technologist with a keen focus on financial engineering, high-conversion web interfaces, and network security.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed">
+                        Whether engineering web dashboards, building responsive web apps, or calculating optimal risk-to-reward models for financial markets, my mission is centered around speed, precision, and reliable architecture.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-lg bg-sky-500/10 text-sky-400">
+                                <i class="fa-solid fa-code text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-200">Modern Code</h4>
+                                <p class="text-xs text-slate-400">Clean HTML5, Tailwind, JS & React</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                                <i class="fa-solid fa-chart-line text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-200">FinTech Tools</h4>
+                                <p class="text-xs text-slate-400">Forex, Gold & Position Calculators</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Feature Cards -->
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-sky-500/40 transition-all glow-cyan">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">Full-Stack Development</h4>
+                                <p class="text-slate-400 text-sm">Crafting slick responsive websites and web applications with seamless UX.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-all glow-emerald">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">Trading Systems & Analytics</h4>
+                                <p class="text-slate-400 text-sm">Building quantitative calculators, indicator scripts, and position tools.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-purple-500/40 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">Networking & Cloud Hosting</h4>
+                                <p class="text-slate-400 text-sm">Ensuring low latency, high availability, and bulletproof security.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-emerald-400">Capabilities</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Tech Stack & Mastery</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-emerald-400 to-sky-400 mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Skill Category 1 -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800">
+                    <h3 class="text-xl font-bold text-sky-400 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-layer-group"></i> Web & Frontend Technologies
+                    </h3>
+                    <div class="space-y-5">
+                        <!-- Skill 1 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-slate-200">HTML5 & CSS3 / Tailwind CSS</span>
+                                <span class="text-sky-400">95%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-400 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 2 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-slate-200">JavaScript (ES6+) & DOM Engineering</span>
+                                <span class="text-sky-400">90%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-400 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 3 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-slate-200">React.js & Responsive Web Design</span>
+                                <span class="text-sky-400">85%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-400 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category 2 -->
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800">
+                    <h3 class="text-xl font-bold text-emerald-400 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-chart-pie"></i> Trading Tools & Systems
+                    </h3>
+                    <div class="space-y-5">
+                        <!-- Skill 1 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-slate-200">Position Sizing & Risk Management</span>
+                                <span class="text-emerald-400">98%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-300 rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 2 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-slate-200">Forex & Commodity Analysis (XAUUSD)</span>
+                                <span class="text-emerald-400">92%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-300 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 3 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-slate-200">Node.js API Integration & Backend</span>
+                                <span class="text-emerald-400">80%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-300 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Badges -->
+            <div class="mt-12 flex flex-wrap justify-center gap-3">
+                <span class="px-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-sm font-medium flex items-center gap-2"><i class="fa-brands fa-html5 text-orange-500"></i> HTML5</span>
+                <span class="px-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-sm font-medium flex items-center gap-2"><i class="fa-brands fa-css3-alt text-blue-500"></i> CSS3</span>
+                <span class="px-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-sm font-medium flex items-center gap-2"><i class="fa-brands fa-js text-yellow-400"></i> JavaScript</span>
+                <span class="px-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-sm font-medium flex items-center gap-2"><i class="fa-brands fa-react text-sky-400"></i> React</span>
+                <span class="px-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-sm font-medium flex items-center gap-2"><i class="fa-brands fa-git-alt text-orange-600"></i> Git</span>
+                <span class="px-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-sm font-medium flex items-center gap-2"><i class="fa-solid fa-terminal text-emerald-400"></i> Command Line</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-900/50">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center space-y-3 mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">
+                    <i class="fa-solid fa-bolt"></i> INTERACTIVE TOOL
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Forex & Gold Position Sizer</h2>
+                <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">Calculate precise lot sizes and risk-to-reward ratios before entering any trade.</p>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-slate-700 glow-emerald">
+                <div class="grid lg:grid-cols-12 gap-8">
+                    <!-- Calculator Inputs -->
+                    <div class="lg:col-span-7 space-y-5">
+                        <!-- Account Balance -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Account Balance ($)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-3.5 text-slate-400 font-bold">$</span>
+                                <input type="number" id="calc-balance" value="10000" class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-8 pr-4 py-3 text-white font-semibold focus:outline-none focus:border-emerald-400 transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Risk Percentage -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Risk (% of Balance)</label>
+                                <input type="number" id="calc-risk" value="1" step="0.1" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white font-semibold focus:outline-none focus:border-emerald-400 transition-colors">
+                            </div>
+
+                            <!-- Stop Loss Pips -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Stop Loss (Pips/Points)</label>
+                                <input type="number" id="calc-sl" value="25" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white font-semibold focus:outline-none focus:border-emerald-400 transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Asset Pair Selector -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Instrument / Pair</label>
+                            <select id="calc-pair" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white font-semibold focus:outline-none focus:border-emerald-400 transition-colors">
+                                <option value="10">EUR/USD, GBP/USD (Standard $10/pip per lot)</option>
+                                <option value="1">XAUUSD / Gold ($1/pip or point per 0.01 standard)</option>
+                                <option value="7">USD/JPY (Approx $7.50/pip per lot)</option>
+                            </select>
+                        </div>
+
+                        <!-- Calculate Action -->
+                        <button id="btn-calculate" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-extrabold text-base hover:brightness-110 transition-all shadow-lg shadow-emerald-500/20">
+                            Calculate Position Size
+                        </button>
+                    </div>
+
+                    <!-- Output Results Panel -->
+                    <div class="lg:col-span-5 bg-slate-950/80 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-6">
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 flex items-center justify-between">
+                                <span>Calculation Results</span>
+                                <span class="text-emerald-400"><i class="fa-solid fa-circle-check"></i> Live</span>
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                                    <div class="text-xs text-slate-400">Total Cash At Risk</div>
+                                    <div class="text-2xl font-black text-rose-400 mt-1" id="res-risk-amt">$100.00</div>
+                                </div>
+
+                                <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                                    <div class="text-xs text-slate-400">Recommended Lot Size</div>
+                                    <div class="text-3xl font-black text-emerald-400 mt-1 code-font" id="res-lot-size">0.40 Lots</div>
+                                </div>
+
+                                <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                                    <div class="text-xs text-slate-400">Units / Value</div>
+                                    <div class="text-lg font-bold text-slate-200 mt-1" id="res-units">40,000 Units</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-slate-500 text-center border-t border-slate-800/80 pt-3">
+                            <i class="fa-solid fa-shield-halved mr-1"></i> Always verify broker contract specifications before executing orders.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400">Portfolio Work</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Featured Projects</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto rounded-full mt-2"></div>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Project 1 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-sky-500/50 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-br from-slate-800 to-sky-950 relative overflow-hidden flex items-center justify-center">
+                            <i class="fa-solid fa-chart-line text-6xl text-sky-400/40 group-hover:scale-110 transition-transform duration-300"></i>
+                            <span class="absolute top-3 right-3 bg-sky-500/20 text-sky-400 text-xs font-bold px-2.5 py-1 rounded-full border border-sky-500/30">FinTech</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">DollarAddict Analytics Dashboard</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">A web application designed for real-time market data monitoring and position management.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">JavaScript</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">Tailwind</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openModal('project1')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-slate-200 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                            <span>View Details</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-emerald-500/50 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-br from-slate-800 to-emerald-950 relative overflow-hidden flex items-center justify-center">
+                            <i class="fa-solid fa-robot text-6xl text-emerald-400/40 group-hover:scale-110 transition-transform duration-300"></i>
+                            <span class="absolute top-3 right-3 bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">Automation</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Risk Guard Engine</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">Automated risk algorithm that prevents over-leveraging and protects trading capital automatically.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">Algorithmic</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openModal('project2')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-slate-200 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                            <span>View Details</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-purple-500/50 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-br from-slate-800 to-purple-950 relative overflow-hidden flex items-center justify-center">
+                            <i class="fa-solid fa-globe text-6xl text-purple-400/40 group-hover:scale-110 transition-transform duration-300"></i>
+                            <span class="absolute top-3 right-3 bg-purple-500/20 text-purple-400 text-xs font-bold px-2.5 py-1 rounded-full border border-purple-500/30">Web Hub</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">High-Speed Portfolio Canvas</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">An ultra-lightweight, single-file interactive app featuring modern glassmorphic styling.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">HTML5</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">Tailwind</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md">ES6</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openModal('project3')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-purple-500 hover:text-slate-950 text-slate-200 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                            <span>View Details</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-900/30">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center space-y-3 mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400">Get In Touch</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Let's Work Together</p>
+                <p class="text-slate-400 text-sm sm:text-base">Have a project, web development request, or trading inquiry? Drop a message below!</p>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-slate-800">
+                <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Name</label>
+                            <input type="text" id="form-name" required placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-400 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Email Address</label>
+                            <input type="email" id="form-email" required placeholder="john@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-400 transition-colors">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Subject</label>
+                        <input type="text" id="form-subject" required placeholder="Project Inquiry / Trading Tech" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-400 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Message</label>
+                        <textarea id="form-message" rows="4" required placeholder="Tell me about your project goals or custom requirements..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-400 transition-colors"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold text-base shadow-lg shadow-sky-500/20 transition-all">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Send Message
+                    </button>
+                </form>
+
+                <!-- Success Alert Notification -->
+                <div id="form-success" class="hidden mt-6 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-center font-semibold">
+                    <i class="fa-solid fa-circle-check mr-2"></i> Thank you! Your message has been sent successfully. I will get back to you shortly.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-slate-800/80 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black text-sm">
+                    $
+                </div>
+                <span class="font-bold tracking-wider text-white">DOLLARADDICT</span>
+            </div>
+
+            <p class="text-xs text-slate-500 text-center">
+                &copy; 2026 DOLLARADDICT. Built for speed, performance, and financial precision.
+            </p>
+
+            <div class="flex space-x-4 text-slate-400 text-lg">
+                <a href="#" class="hover:text-sky-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-sky-400 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition-colors"><i class="fa-solid fa-chart-line"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="modal-container" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="glass-panel bg-slate-900 max-w-xl w-full rounded-2xl border border-slate-700 p-6 sm:p-8 space-y-6 relative animate-float">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content" class="space-y-4">
+                <!-- Content inserted dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ----------------------------------------------------
+           1. Typing Effect Logic for Hero Subtitle
+           ---------------------------------------------------- */
+        const phrases = [
+            "Full-Stack Web Developer",
+            "Trading Systems Engineer",
+            "FinTech Specialist",
+            "UI/UX Designer"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTextElement = document.getElementById('typed-text');
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typedTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000; // Pause at top
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+
+        /* ----------------------------------------------------
+           2. Particle Canvas Background Animation
+           ---------------------------------------------------- */
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.color = Math.random() > 0.5 ? '#38bdf8' : '#10b981';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 15), 60);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        /* ----------------------------------------------------
+           3. Forex & Risk Position Calculator Logic
+           ---------------------------------------------------- */
+        function calculatePosition() {
+            const balance = parseFloat(document.getElementById('calc-balance').value) || 0;
+            const riskPct = parseFloat(document.getElementById('calc-risk').value) || 0;
+            const slPips = parseFloat(document.getElementById('calc-sl').value) || 1;
+            const pipValuePerLot = parseFloat(document.getElementById('calc-pair').value) || 10;
+
+            const riskAmount = (balance * (riskPct / 100));
+            const totalPipRiskCost = slPips * pipValuePerLot;
+            let lotSize = riskAmount / totalPipRiskCost;
+
+            if (lotSize < 0.01) lotSize = 0.01;
+
+            const units = Math.round(lotSize * 100000);
+
+            document.getElementById('res-risk-amt').textContent = `$${riskAmount.toFixed(2)}`;
+            document.getElementById('res-lot-size').textContent = `${lotSize.toFixed(2)} Lots`;
+            document.getElementById('res-units').textContent = `${units.toLocaleString()} Units`;
+        }
+
+        /* ----------------------------------------------------
+           4. Modal Controller
+           ---------------------------------------------------- */
+        const projectDetails = {
+            project1: {
+                title: "DollarAddict Analytics Dashboard",
+                badge: "FinTech App",
+                desc: "A comprehensive web dashboard designed for real-time portfolio monitoring, live ticker tape widgets, and risk exposure analytics.",
+                tech: ["HTML5", "Tailwind CSS", "JavaScript ES6", "WebSockets"]
+            },
+            project2: {
+                title: "Risk Guard Engine",
+                badge: "Automation Tool",
+                desc: "An algorithmic trading utility that enforces firm stop losses and position capping to guarantee account protection during dynamic market volatility.",
+                tech: ["JavaScript", "Node.js", "Financial APIs", "JSON Data Engine"]
+            },
+            project3: {
+                title: "High-Speed Portfolio Canvas",
+                badge: "Web Application",
+                desc: "A modern glassmorphic web page designed for extreme speed and adaptability across desktop, tablet, and mobile browsers.",
+                tech: ["Responsive Web Design", "Tailwind CSS", "DOM Manipulation"]
+            }
+        };
+
+        function openModal(key) {
+            const item = projectDetails[key];
+            if (!item) return;
+
+            const contentHtml = `
+                <div class="inline-block px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold mb-2">${item.badge}</div>
+                <h3 class="text-2xl font-bold text-white">${item.title}</h3>
+                <p class="text-slate-300 text-sm leading-relaxed">${item.desc}</p>
+                <div class="pt-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Technologies Used</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${item.tech.map(t => `<span class="text-xs bg-slate-800 text-slate-200 px-3 py-1 rounded-lg">${t}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="pt-4 flex justify-end">
+                    <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm">Close</button>
+                </div>
+            `;
+            document.getElementById('modal-content').innerHTML = contentHtml;
+            const container = document.getElementById('modal-container');
+            container.classList.remove('hidden');
+            container.classList.add('flex');
+        }
+
+        function closeModal() {
+            const container = document.getElementById('modal-container');
+            container.classList.add('hidden');
+            container.classList.remove('flex');
+        }
+
+        /* ----------------------------------------------------
+           5. Form Handler & Theme Toggle Logic
+           ---------------------------------------------------- */
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('form-success').classList.remove('hidden');
+            document.getElementById('contact-form').reset();
+            setTimeout(() => {
+                document.getElementById('form-success').classList.add('hidden');
+            }, 5000);
+        }
+
+        // Theme Toggle Implementation
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        /* ----------------------------------------------------
+           Initialization On Window Load
+           ---------------------------------------------------- */
+        window.onload = function () {
+            // Typing Animation
+            typeLoop();
+
+            // Particle Setup
+            resizeCanvas();
+            initParticles();
+            animateParticles();
+
+            // Calculator Button Event
+            document.getElementById('btn-calculate').addEventListener('click', calculatePosition);
+            calculatePosition(); // Run once initially
+        };
+
+        window.onresize = function () {
+            resizeCanvas();
+            initParticles();
+        };
+    </script>
+</body>
+</html>
+```
